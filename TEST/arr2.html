@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+var arr=["1",'2',"3"]
+console.log(arr.join())    //不规定分隔符  默认 ，
+console.log(arr.join(" "))   //使用分隔符 空格
+console.log(arr.join(""))   //不使用任何分隔符
+    var arr=["我","宝","爱","a","1"];
+    console.log(arr.sort())
+    var arr1=["a","aa","1111","d","b"]
+    console.log(arr1.reverse()); 
+
+//demo2:
+
+//筛选数组arr2中的前两项  新数组每一项键itemStyle
+var arr2=[{name:"aaaa",age:"28",sex:"男"},{name:"bbb",age:"18",sex:"男"},{name:"cccc",age:"8",sex:"男"}]
+var arr3=[];
+var yanse=[ "#339cff","#5e7ceb", "#ffba14"]
+arr3=arr2.map(function(item){
+    var obj={};
+    var obj1={}
+    obj.name=item.name;
+    obj.age=item.age;
+    obj.itemStyle=obj1
+    return obj
+}) 
+//循环两个数组  将yanse数组的每一项值 赋值给arr3中每一项itemStyle
+for(var i=0;i<arr3.length;i++){
+    console.log(arr3[i].itemStyle)
+    for(var j=0;j<yanse.length;j++){
+        if(i==j){
+            arr3[i].itemStyle={color:yanse[j]}        
+        }  
+    }
+}
+console.log(arr3)
+
+// demo3:
+function fn(aaa){
+    return aaa>=111;
+}
+console.log(fn())
+
+//demo4:  字符串转数组
+var num=0;
+var str="SSSSSSSSSSSSSSSSSSSSSS5SSSSSSSSSSSS55SSSSSSSS5SSSSSSSSS5SSSSSSS5SSSSSSSSS3SSSSSSSSSSSSSSSS55SSSSSSSSSSSSSSSS555SSSSSSSSSSSSSSSSSSSSSSSSS5SSSSSSSSSSSS5SSSSSSSSSSSSSSSSSSSSSSSSSSSS5SSSSSSSSSSSSSSSSSSSSSS5SSSSSSSSSSSSSSSSSS"
+var data=str.split("")
+console.log(str.split(""))
+for(var i=0;i<data.length;i++){
+    if(data[i]==5){
+        num++
+    }
+    if(data[i]==3)
+    console.log("有3",i)
+}
+ console.log(num) 
+
+//  demo5:
+// 页面上 看情况循环  v-if="obj.a"
+
+
+//  data(){
+//      return{
+//          obj1:{
+//              a:"",
+//              b:""
+//          },
+            // obj2:{
+             // a:"",
+//              b:"",
+             // C:"" 
+            // }
+//      }
+//  }
+  
+//  var  a=false   默认false  选中变true      写个方法  点击打击效果改变a 的状态  true=!true
+//  var  b=false   默认false  选中变true      写个方法  点击打击准备时效b 的状态  true=!true
+//  this.arr.a=a
+//  this.arr.b=b
+
+    </script>
+</body>
+</html>

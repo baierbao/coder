@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>obj</title>
+</head>
+<body>
+   <script type="text/javascript">
+   /******
+   https://www.cnblogs.com/diligenceday/p/5462733.html  Symbol
+   https://www.cnblogs.com/panrui1994/p/9378696.html
+   https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+   */
+   var obj1={
+       name:'张三',
+       age:'18',
+       score:[1,[2,3],[4,5]]
+   }
+   var obj2=shallowCopy(obj1);
+   function shallowCopy(src){
+       var dst={};
+       for(var prop in src){
+           if(src.hasOwnProperty(prop)){
+               dst[prop]=src[prop];
+           }
+       }
+       return dst;
+
+   }
+   
+//    var obj3=JSON.stringify(obj1);
+//    var obj4=JSON.parse(JSON.stringify(obj1))
+//    console.log(obj3)
+//    console.log(obj4)
+//    console.log(obj1)
+
+/*************
+Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。
+语法:Object.assign(target,...sources)   返回目标对象
+     target     目标对象
+     sources    源对象
+Object.assign()  是浅拷贝  它拷贝的是属性值. 假如源对象的属性值是一个对象的引用,那么他也指向那个引用
+                 如果对象本身存在的属性会更新,不存在的属性会增加
+*/
+var obj={
+    a:'1',
+    b:'2',
+    c:'c'
+}
+var Obj=Object.assign({c:'3'},obj)
+var Obj1=Object.assign(obj,{c:'3'})
+console.log(Obj)
+console.log(obj)
+console.log(Obj1)
+
+let obj5 = { a: 0 , b: { c: 0}}; 
+let obj6 = Object.assign({}, obj5); 
+console.log(JSON.stringify(obj6)); // { a: 0, b: { c: 0}} 
+console.log(obj6)
+
+
+/*****
+Deep Clone  深拷贝  改变源对象的值  新对象的值不该表
+语法  let obj3 = JSON.parse(JSON.stringify(obj1)); 
+*/
+var OBJ={
+    a:0,
+    b:{c:0}
+}
+var OBJ1=JSON.stringify(OBJ);
+var OBJ2=JSON.parse(JSON.stringify(OBJ));
+OBJ.a=4;
+OBJ.b.c=6;
+console.log(OBJ1);
+console.log(OBJ2);
+console.log(Object.keys(OBJ)+"++++")
+console.log(Object.values(OBJ)+"---")
+
+/*************************
+Symbol
+*/
+
+let obj11 = {};
+let sAttr0 = Symbol("hehe");
+let sAttr1 = Symbol("meme");
+obj11[sAttr1] = 1;
+console.log(obj11[sAttr1]);
+console.log(obj11)
+obj11[sAttr0] = () => {
+    return ++obj11[sAttr0];
+};
+
+// Symbol无法被for in ， for of循环，以及Object.keys, Object.values 等都无法遍历到Symbol的属性；
+//  Object下给我们提供了一个getOwnPropertySymbols；  或者用ES6提供的反射 : Reflect.ownKeys， 反射
+let sym0 = Symbol("o_o?");
+let obj12 = {
+    [sym0] : "heheda"
+}
+console.log(Object.getOwnPropertySymbols(obj12))  //获取的是对象obj12的Symbol类型key值
+console.log(Reflect.ownKeys(obj12))               //获取的是对象obj12的Symbol类型key值
+for( let prop of Object.getOwnPropertySymbols(obj12) ) {
+    //prop就是Symbol的名字
+    console.log( obj12[prop] ); //输出：heheda
+    console.log(prop);          //输出:Symbol("o_o?")
+};
+
+// Symbol.for和 Symbol.keyFor
+// 　Symbol.for和Symbol的唯一区别是 Symbol.for创建的两个实例可能相等， 根据Symbol的参数生成实例，
+//  如果参数一样， 那么会返回同一个实例；
+let foo = Symbol.for( "1111" );
+let bar = Symbol.for("1111");
+console.log( foo === bar );  //输出： true
+let one=Symbol("qqq");
+let two=Symbol("qqq");
+console.log(one==two);      //输出:false
+//只有通过Symbol.for创建的对象，才能用keyFor找到原来的参数；
+console.log(Symbol.keyFor(foo)) //会输出：1111
+
+console.log(Symbol.prototype)   //输出Symbol的原型
+
+
+
+// 判断是否为对象
+function isObject(o) {
+    return (typeof o === 'object' || typeof o === 'function') && o !== null
+}
+
+console.log(isObject(shallowCopy))
+console.log(isObject(obj))
+
+
+//判断传进来的是对象还是数组  Array.isArray()
+let isArray=Array.isArray()
+
+
+   </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<template>
+  <div>
+    <my-ul>
+        <my-li>
+            <a href="">
+                <span class=""></span>
+                <span>图文分享</span>
+            </a>
+        </my-li>
+    </my-ul>
+  </div>
+</template>
+<script>
+export default {
+    name:"home",
+    data(){
+        return{
+          grids:[
+              {
+                  name:'newMsg',
+                  title:'新闻资讯'
+              },
+               {
+                  name:'newMsg',
+                  title:'新闻资讯'
+              },
+               {
+                  name:'newMsg',
+                  title:'新闻资讯'
+              },
+               {
+                  name:'newMsg',
+                  title:'新闻资讯'
+              },
+               {
+                  name:'newMsg',
+                  title:'新闻资讯'
+              }, 
+              {
+                  name:'newMsg',
+                  title:'新闻资讯'
+              }
+          ]
+        }
+    }
+}
+</script>
+<style scoped>
+/* ul{
+    display: flex;
+    flex-wrap: wrap;
+    width:100%;
+}
+li{
+    width:33.3%;
+    text-align: center;
+    padding: 20px 0;
+} */
+a{
+    color: black;
+    text-decoration: none;
+}
+</style>
+

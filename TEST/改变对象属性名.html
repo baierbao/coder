@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+   <script type="text/javascript">
+   //根据number截取data.value.value 并改变属性名
+   
+        let  data={"minValue":7400,
+                    "maxValue":"18500",
+                    "value":{
+                            "value":[
+                                    {"dmdDate":"2019-05","dmdAppValue":"9999"},
+                                    {"dmdDate":"2019-06","dmdAppValue":"8888"},
+                                    {"dmdDate":"2019-07","dmdAppValue":""}
+                                    ],
+                            "number":2
+                            }
+                    }
+
+        var num=data.value.number;// 2
+        var arr=data.value.value.slice(0,num);
+        // 方法一
+        var arr2 = JSON.stringify(arr).replace(/dmdDate/g, "leftText").replace(/dmdAppValue/g, "value");
+        console.log(arr2)   //  [{"leftText":"2019-05","value":"9999"},{"leftText":"2019-06","value":"8888"}]
+        var arr3=JSON.parse(arr2)   
+        console.log(arr3)  
+      
+        //方法
+        var key1="leftText",key2="value";
+        for(var i=0;i<arr.length;i++){
+        arr[i][key1]=arr[i].dmdDate
+        arr[i][key2]=arr[i].dmdAppValue
+        delete arr[i].dmdDate
+        delete arr[i].dmdAppValue
+        }
+        //      console.log(key1,key2)
+        console.log(arr)
+   </script> 
+</body>
+</html>

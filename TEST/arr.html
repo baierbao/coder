@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组的操作</title>
+</head>
+<body>
+<script type="text/javascript">
+/****************
+→ → join()  将数组的所有元素组成一个字符串
+    var arr=["1",'2","3]
+    arr.join()     不规定分隔符  默认 ，  // 1,2,3
+    arr.join(" ")   使用分隔符 空格       //1 2 3
+    arr.join("")    不使用任何分隔符      //123
+→ → reverse()  将数组内的所有值反转   倒序  
+
+→ → sort()  排序规则
+    1、无参数时，按照Unicode排序   不是按照大小排序  默认升序 第一个字母一样就按第二个字母排序  区分大小写排序
+        比如  ["3","23"] 排序后为["23","3"]  第一个数字一样就按第二个数字排序    汉字排序暂未知
+        数组内有字母  数字时   数字在前  字母在后
+    2、传function,
+        arr为number时 
+            arr.sort(function(a,b){
+            return a-b     //a-b 为升序   b-a为降序
+            })
+        arr为string或者既有string 又有number时
+            arr.sort(function(a,b){
+                if(a>b){
+                return 1    //return 1&& a>b  执行a、b位置  return不是1 不会换位置
+                }
+            })
+ ☟☟☟☟☟☟☟☟☟ sort排序原理 ☟☟☟☟☟☟☟☟☟☟
+   var arr= [0,2,1,0.5] 
+   arr.sort()   // 0,0.5,1,2
+
+    第一轮:按照上面的规定，不交换位置，那么第一次下来是:0,2,1,0.5因为0比任何的数都小所以第一轮结束，他始终在最前面我就不分析了
+
+　　第二轮:v1=2,v2=1;
+
+　　第一次:由于v1>v2所以v1和v2的值交换位置结果为:0,1,2,0.5;
+
+　　第二次:这个时候v1=1,v2=2进行比较结题为:0,1,2,0.5,
+
+　　第三次:这个时候v1=1,v2=0.5由于v1>v2所以v2和v2交换位置，其结果为:0,0.5,1,2
+
+　　第四次:这个时候v1=0.5,v2=2进行比较其结果为:0,0.5,1,2
+
+　　第三轮:v1=1,v2=2;
+   
+*/
+var arr1=["w","3","s","c","hool","23","521","30"];
+var arr2=["a","b","c","bai","a1","aa","0.1","99","99"]
+
+function fn(arr){
+  document.write(arr+'<br/>');
+}
+
+fn(arr1.join("."));   //  w.3.s.c.hool   用join()  将数组的所有元素组成一个字符串  用 . 取代 数组内的 ， 
+fn(arr1.join(""));     //w3school
+fn(arr1)
+fn(arr1.sort());       //   23,3,30,521,c,hool,s,w
+
+console.log(arr2.sort(function(a,b){
+    if(a<b){
+        return 1;  //a<b   换位置  降序    
+    }  
+}))     //["a", "b", "c", "bai", "a1", "aa", "0.1", "99", "99"]  
+
+/**********某面试题,打乱数组元素的顺序******************/
+       var ranArr = [1,2,3,4,5,6,7]
+       ranArr.sort(function(){
+            return Math.random() - 0.5;
+       })
+       console.log(ranArr)   //[4, 6, 3, 2, 7, 1, 5]  每次都在变化
+
+/**************多重数组排序***************
+当然我们也可以用sort()去给json对象数组排序，甚至双重、多重排序。如下例子，我们按学生的
+总分排序，如果总分相等，我们再按照语文成绩排序。
+    var jsonStudents = [
+        {name:"Dawson", totalScore:"197", Chinese:"100",math:"97"},
+        {name:"HanMeiMei", totalScore:"196",Chinese:"99", math:"97"},
+        {name:"LiLei", totalScore:"185", Chinese:"88", math:"97"},
+        {name:"XiaoMing", totalScore:"196", Chinese:"96",math:"100"},
+        {name:"Jim", totalScore:"196", Chinese:"98",math:"98"},
+        {name:"Joy", totalScore:"198", Chinese:"99",math:"99"}];
+        
+    jsonStudents.sort(function(a,b){
+        var value1 = a.totalScore,
+            value2 = b.totalScore;
+        if(value1 === value2){
+            return b.Chinese - a.Chinese;
+        }
+        return value2 - value1;
+    });
+    输出：
+    0:{name: "Joy", totalScore: "198", Chinese: "99", math: "99"}
+    1:{name: "Dawson", totalScore: "197", Chinese: "100", math: "97"}
+    2:{name: "HanMeiMei", totalScore: "196", Chinese: "99", math: "97"}
+    3:{name: "Jim", totalScore: "196", Chinese: "98", math: "98"}
+    4:{name: "XiaoMing", totalScore: "196", Chinese: "96", math: "100"}
+    5:{name: "LiLei", totalScore: "185", Chinese: "88", math: "97"}
+--------------------- 
+**/
+
+/**
+→ → every()  使用指定函数检测数组中的所有元素 
+             如果数组中检测到有一个元素不满足，则整个表达式返回 false ，且剩余的元素不会再进行检测。
+             如果所有元素都满足条件，则返回 true。
+             两个参数:第一个为检测的方法   第二个为执行 callback 时使用的 this 值, 第二值省略了"this" 的值为 "undefined"
+*/
+
+var arr3=[{name:"首页组",age:"3"},{name:"业扩组",age:"5"},{name:"公共组",age:"2"}];
+//    map 映射取arr3中的age对应值
+    var arr4=arr3.map((item)=>{
+    var obj="";
+      obj=item.age;
+    return obj;
+    })
+console.log(arr4)
+//  大于0 return的方法
+function select(data){
+    return data>0;
+}
+//利用数组every方法对数组每一项进行判断  满足返回true  否则false
+console.log(arr4.every(select,this))  //true
+
+
+/**
+→ → some()   使用指定函数检测数组中的所有元素 
+             如果数组中检测到有一个元素满足，则整个表达式返回 true ，且剩余的元素不会再进行检测。
+             如果没有满足条件的元素，则返回 false。
+             两个参数:第一个为检测的方法   第二个为执行 callback 时使用的 this 值, 第二值省略了"this" 的值为 "undefined"
+*/
+
+/**
+→ → reduce()  https://www.jb51.net/article/121572.htm  https://www.cnblogs.com/qqandfqr/p/6049315.html
+              接收一个函数作为累加器,数组中的每一值(从左往右)开始合并,最终为一个值
+              arr.reduce(callback,initialValue)
+              第一个参数类型 function   第二个为callback第一次调用的第一个参数
+              第一个参数共有四个属性 function(previousValue,currentValue,index,array ){}
+              previousValue （上一次调用回调返回的值，或者是提供的初始值（initialValue））
+              currentValue （数组中当前被处理的元素）
+              index （当前元素在数组中的索引）
+              array （调用 reduce 的数组）
+*/   
+// demo1:        
+    var arr5=[10,50,20];
+    var fn=function add(a,b){
+        return b-a    //累加方法  此处写累加规则
+    }
+    var arr6=arr5.reduce(fn,0)
+    console.log(arr6);
+
+// demo2:
+    var arr7=[21,34,42,13];
+    var reduce=function haha(a,b){    //          a     b
+        a.c=a.c+b;                   // 第一次   {c:0}  21
+        return a                     // 第二次   {c:21} 34
+};                                   // 第三次   {c:55} 42   第四次  {c:97}  13  第五次 {c:110} 13
+    var arr8=arr7.reduce(reduce,{c:0});
+    console.log(arr8)   //{c:110}
+
+//demo3: 求总成绩
+    var result = [
+        {
+            subject: 'math',
+            score: 88
+        },
+        {
+            subject: 'chinese',
+            score: 95
+        },
+        {
+            subject: 'english',
+            score: 80
+        }
+    ];   
+    var sum = result.reduce(function(prev, cur) {
+             return cur.score + prev;
+    }, 0);
+    console.log(sum)
+    // 假设该同学因为违纪被处罚在总成绩总扣10分，只需要将初始值设置为-10即可。
+    var sum1 = result.reduce(function(prev, cur) {
+             return cur.score + prev;
+    }, -10);
+    console.log(sum1)
+    // 假如该同学的总成绩中，各科所占的比重不同，分别为50%，30%，20%，
+    var dis = {
+        math: 0.5,
+        chinese: 0.3,
+        english: 0.2
+    }
+    var sum3 = result.reduce(function(prev, cur) {
+        return cur.score + prev;
+    }, -10);
+    var qsum = result.reduce(function(prev, cur) {
+        return cur.score * dis[cur.subject] + prev;
+    }, 0)
+    console.log(sum3, qsum);
+/**
+→ → reduceRight()  与reduce()区别  从右往左进行逐个按自定义规则计算  输出最终结果 
+*/
+
+/**
+→ → indexOf()  与 lastIndexOf() 
+        搜索整个数组具有给定值的元素  返回找到的第一个索引   未找到返回-1  
+        indexOf()   从左往右搜索   lastIndexOf()  从右往左搜索
+        字符串indexOf()和lastIndexOf()功能类似
+                
+*/
+
+/**
+→ → forEach()
+         forEach用于调用数组的每一个元素，并将元素传递给回调函数，语法：
+         array.forEach(function(currentValue, index, currentArray){ } , thisValue); 
+         1、 currentValue为数组当前item的一个副本，因此改变currentValue不会对原数组产生影响
+         2、可以通过currentArray与index改变原数组   
+         3、其实，map和forEach方法也不能说不改变原数组，当item为引用类型的时候，对item里的数据进行修改还是会改变的   
+*/
+var arr11=["1","2"]
+var arr9=[{num:"1"},{num:"2"}];
+var arr10=arr9.forEach(function(item,index,arr){item.num++});
+console.log(arr9);//item为引用类型 arr9数组已改变 
+console.log(arr10)//underfiend  forEach使用后不会返回新数组 只是复制了一份数组item 当item为引用类型时,原数组改变
+ 
+/**
+    map适合对一个数组中的每个元素进行相同的操作
+    filter函数可以看成是一个过滤函数，返回符合条件的元素的数组
+    filter和map的区别：filter需要在循环的时候判断一下是true还是false，是true才会返回这个元素；map没有这个过程。
+
+→ → map()  映射
+         map方法返回一个新数组，数组中每一个元素为原数组元素调用回调函数处理后的结果。语法：
+         var newArray = array.map(function(currentValue, index, currentArray){}, thisValue); 
+         map和forEach方法也不能说不改变原数组，当item为引用类型的时候，对item里的数据进行修改还是会改变的 
+         可参考arr2.html 中demo2  
+*/
+
+/**
+→ → filter() 过滤
+        array.filter(function(currentValue,index,arr), thisValue)
+*/
+      
+
+/**
+→ → toString()和toLocaleString()
+        toString()  https://blog.csdn.net/weirdo_na/article/details/79748568
+    toLocaleString( )和toString( )区别   https://blog.csdn.net/weixin_40260594/article/details/78976060
+        《javascript高级程序设计》解释：
+            “toLocaleString( )返回对象的字符串表示，该字符串与执行环境的地区对应；toString( )返回对象的字符串表示；”
+               感觉还是不太好理解......来看几个实例：
+            var a = 6666;
+            a.toLocaleString();
+            //"6,666"
+            a.toString();
+            //"6666"
+            可以看到，当数字是三位以上时，会每三位出现一个分隔号；
+            数组：
+            var c = [1,2,3];
+            console.log(c.toLocaleString());
+            //1,2,3
+            console.log(c.toString());
+            //1,2,3
+            没有区别
+            日期：
+            var dt = new Date();
+            console.log(dt.toLocaleString());
+            //2018/1/4 下午10:32:18
+            console.log(dt.toString());
+            //Thu Jan 04 2018 22:32:18 GMT+0800 (中国标准时间)
+            结论：
+            1、LocaleString()会根据你机器的本地环境来返回字符串，它和toString()返回的值在不同的本地环境下使用的符号可能变化；
+            2、使用toString()是保险的方法，它不会因为本地环境（例如国家）改变而改变；
+            3、为了返回时间类型的值的话，使用toLocaleString()；
+
+    toString()和join() 将数组转化为字符串
+    var a = [ "David", "Cynthia", "Raymond", "Clayton", "Mike", "Jennifer" ];
+    var a1 = a.join();
+    alert(a1); // David,Cynthia,Raymond,Clayton,Mike,Jennifer
+    alert(typeof a1)//string
+    a2 = a.toString();
+    alert(a2); // David,Cynthia,Raymond,Clayton,Mike,Jennifer
+    alert(typeof a2);//string
+     补充：join()方法的另一种运用：
+
+    var a = [ "David", "Cynthia", "Raymond", "Clayton", "Mike", "Jennifer" ];
+    var a1 = a.join("-****-");
+    document.write(a1); // David-****-Cynthia-****-Raymond-****-Clayton-****-Mike-****-Jennifer 
+*/
+
+/**
+→ → unshift()和shift()  
+→ → push()和pop()
+        unshift() 数组头部插入  括号内有几个参数插入几个值
+        shift()   删除数组的第一个值  返回删除的第一个值 
+        push()    数组尾部插入  括号内有几个参数插入几个值
+        pop()     删除数组的最后一个值  返回删除的最后一个值
+    
+*/
+
+var ARR=["1","2","3"];
+console.log(ARR.unshift(2,5,7,9))  //输出为新数组的长度
+console.log(ARR.push("haha"))
+console.log(ARR.shift())  //返回删除的数组的第一个值
+console.log(ARR.pop())    ////返回删除的数组的最后一个值
+console.log(ARR)  //输出新数组
+
+/**
+→ → splice() 
+      arr.splice(index,howmany,item1,...,itemX)
+      index   必需 规定添加/删除的位置,   console.log(arr.splice(1,0)) 返回删除的项目 
+              为负数  如 -1 最后一个插入  -2倒数第二位
+      howmany 必需  要删除的项目数量.如果设置为0,则不删除项目
+      item1,...itemX  非必需  向数组添加的新项目
+→ → slice()
+      arr.slice(start,end)  从start开始截取,end结束(不含)
+      start   必需 规定选取位置 如果是负数,则从数组尾部开始算起. -1指最后一个元素,-2指倒数第二个人元素.
+      end     非必需  选取结束位置  未传  默认到数组最后一个 参数为负数  -1最后一个  -2 倒数第二个
+      两参数均为负   返回空数组
+*/
+
+var ARR1=["a","b","c","d"]
+console.log(ARR1.splice(-1,0,4))   //[]
+console.log(ARR1)   // ["a", "b", "c", 4, "d"]
+
+var ARR2=["a","b","c","d"]
+console.log(ARR2.slice(1,2)) //["b"]
+console.log(ARR2.slice(1))  //["b","c","d"]
+console.log(ARR2.slice(1,-2))  //["b"]
+console.log(ARR2.slice(-1,-2))  //[]
+/**
+→ → concat()  用于连接两个或多个数组  返回的是一个新的数组
+    arr.concat(arrayX,arrayX,...,arrayX)
+    arrayX  必需 该参数可以是具体的值  也可以是数组  可以传多个     
+*/
+
+var ARR3=["a","b","c","d"]
+console.log(ARR3.concat(1))
+console.log(ARR3.concat(1,2))
+console.log(ARR3.concat("a"))
+</script>
+</body>
+</html>
