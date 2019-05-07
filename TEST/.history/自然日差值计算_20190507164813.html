@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自然日差值计算demo</title>
+</head>
+<body>
+    
+</body>
+<script type="text/javascript">
+ 
+   
+    
+  
+    function showMonth(){
+        var date=new Date();
+        var mons = [];
+        var days=mons[date.getMonth()]-_getNum(date.getDate())+1  // 当前月总天数-当前日前+1
+        function _getNum(num){
+            if(num<10)
+                return "0"+num;
+            else
+                return num;
+        }
+        // function  _getCurrentMonthDays(){
+        //     return mons[date.getMonth()]   // 获取当月总天数
+        // }
+        // function _getCurrentDate(){
+           
+        //     return _getNum(date.getDate())   
+        //  }
+        // var days=_getCurrentMonthDays()-_getCurrentDate()+1;
+        // var year=new Date().getFullYear();
+        var year=2016;
+        if(year % 4 == 0 && year % 100 != 0 || year % 400 == 0){
+            mons = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        }else{
+            mons=[31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        }
+        if(days<=5){
+            return _getNum((new Date().getMonth()+1)+1)   //当天月+1
+        }else{
+            return _getNum(new Date().getMonth()+1)
+        }
+
+      return  mons
+    }
+  console.log(showMonth())
+
+  
+</script>
+</html>
