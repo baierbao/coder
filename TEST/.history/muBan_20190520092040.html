@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>图片和×</title>
+  <style>
+      .mov{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background: rgba(255,255,255,0.2);
+        z-index: 100;
+      }
+      .modelMov{
+          position:relative;
+      }
+      .topImg{
+        width: 70%;
+        height:200px;
+        border:10px solid #333;
+        margin-left: 12%;
+        z-index: 200;
+      }
+      .bottomImg{
+        width:30px;
+        height: 30px;
+        background: url(./image/closeType.png) no-repeat;
+        background-size: cover;
+        background-color: rgb(31, 23, 23);
+        border-radius: 50%;
+        border:1px solid #000;
+        z-index: 200;
+        position: absolute;
+        left: 45%;
+        margin-top: 28px;
+      }
+  </style>
+</head>
+<body>
+  <div class="mov">
+    <div class="modelMov"> 
+        <div class="topImg">
+            <img src="" alt="">
+          </div>
+          <div class="bottomImg">
+             <img src="" alt="">
+          </div>
+    </div>
+      
+  </div>
+     
+</body>
+<script type="text/javascript">
+        var tap = document.querySelectorAll(".modelMov");
+        console.log(tap)
+        tap.style.background = "#000";
+        
+</script>
+
+</html>

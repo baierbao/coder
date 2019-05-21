@@ -17,8 +17,8 @@ export default {
 li{
     width:33.3%;
     text-align: center;
-    padding: 20px 0;
-    border: solid 1px red;
+    padding: 10px 0;
+    /* border: solid 1px red; */
     box-sizing: border-box;
 }
 </style>

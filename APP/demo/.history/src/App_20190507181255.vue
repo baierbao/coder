@@ -10,26 +10,24 @@
     </mt-swipe>
    </div>
    <router-view></router-view>
-   <div class="footer">
    <mt-tabbar v-model="selected">
       <mt-tab-item id="home">
-        <img slot="icon" src="./assets/img/home.png">
+        <img slot="icon" src="./assets/img/a.png">
         首页
       </mt-tab-item>
       <mt-tab-item id="member">
-        <img slot="icon" src="./assets/img/menber.png">
+        <img slot="icon" src="./assets/img/a.png">
         会员
       </mt-tab-item>
       <mt-tab-item id="shopping">
-        <img slot="icon" src="./assets/img/shopping.png">
+        <img slot="icon" src="./assets/img/a.png">
         购物车
       </mt-tab-item>
       <mt-tab-item id="search">
-        <img slot="icon" src="./assets/img/search.png">
+        <img slot="icon" src="./assets/img/a.png">
         查找
       </mt-tab-item>
    </mt-tabbar>
-   </div>
   </div>
 </template>
 
@@ -39,7 +37,8 @@ export default {
   name: 'App',
   data(){
     return{
-      selected:""
+      selected:"",
+      day:""
     }
   },
   methods:{
