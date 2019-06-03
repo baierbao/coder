@@ -16,7 +16,8 @@ Vue.component(MyUl.name,MyUl)
 Vue.component(MyLi.name,MyLi)
 //引入axios
 import axios from 'axios'
-Vue.prototype.axios=axios;
+
+
 
 Vue.config.productionTip = false
 

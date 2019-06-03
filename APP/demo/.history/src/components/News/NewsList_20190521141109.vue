@@ -26,11 +26,6 @@ export default {
               }
           ],
         }
-    },
-    methods:{
-        getData:{
-            
-        }
     }
 }
 </script>

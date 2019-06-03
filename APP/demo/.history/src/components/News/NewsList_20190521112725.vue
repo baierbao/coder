@@ -22,14 +22,9 @@ export default {
                url:'http://img2.imgtn.bdimg.com/it/u=1451330793,2242997567&fm=26&gp=0.jpg',
                newsTitle:'小米辟谣官微信息：恶意抹黑小米官微纯属造谣',
                click:'222',
-               time:'423435222',
+               time:'13454657658568'
               }
           ],
-        }
-    },
-    methods:{
-        getData:{
-            
         }
     }
 }
@@ -57,18 +52,8 @@ export default {
 /* .newsContent p:first-child:visited{
      color: red;
 } */
-.title:link{
-     color: blue;
-}
-.title:visited{
+.newsContent p:visited{
      color: red;
-}
-.title:hover{
-     color: greenyellow;
-     background: brown;
-}
-.title:active {
-     color: orange;
 }
 .newsContent p:last-child{
     display: flex;

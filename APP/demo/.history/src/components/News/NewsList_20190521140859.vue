@@ -22,14 +22,9 @@ export default {
                url:'http://img2.imgtn.bdimg.com/it/u=1451330793,2242997567&fm=26&gp=0.jpg',
                newsTitle:'小米辟谣官微信息：恶意抹黑小米官微纯属造谣',
                click:'222',
-               time:'423435222',
+               time:new Data(),
               }
           ],
-        }
-    },
-    methods:{
-        getData:{
-            
         }
     }
 }
