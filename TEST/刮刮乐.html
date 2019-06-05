@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>canvas刮刮卡解决方法</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <style type="text/css">
+        canvas {
+            background: url('http://m.qpic.cn/psb?/V11YYNwU26sj8h/FRuxPNajKGGB8lqvCsHwEM0KIJiKz4kgBTnnti*No2k!/b/dCIBAAAAAAAA&bo=GgIaAgAAAAARFyA!&rf=viewer_4');
+        }
+    </style>
+</head>
+<body>
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+
+    <script type="text/javascript">
+        var canvas = document.getElementById('canvas'),
+            c = canvas.getContext('2d'),
+            // 定义一个数组，保存鼠标移动的点
+            arr = [],
+            // 保存属性是否按下去的布尔值
+            isDown = false;
+
+        c.save();
+        c.beginPath();
+        // c.fillText('一只鸭子',200,200);
+        c.fillStyle = 'gray';
+        c.fillRect(0,0,600,600);
+        c.restore();
+
+        canvas.addEventListener('mousedown',function(e){
+            e = e || window.event;
+            isDown = true;
+            var x = e.clientX - this.offsetLeft;
+            var y = e.clientY - this.offsetTop;
+            // console.log(x,y);
+            arr.push([x,y]);
+            // console.log(arr);
+            clear(c);
+        })
+
+        canvas.addEventListener('mousemove', function(e){
+            if (isDown) {
+                e = e || window.event;
+                var x = e.clientX - this.offsetLeft;
+                var y = e.clientY - this.offsetTop;
+                // console.log(x,y);
+                arr.push([x,y]);
+                // console.log(arr);
+                clear(c);
+            }
+        })
+
+        canvas.addEventListener('mouseup',function(e){
+            isDown = false;
+            arr = [];
+        })
+
+        function clear(c){
+            c.save();
+            c.beginPath();
+            c.moveTo(arr[0][0],arr[0][1]);
+            c.lineJoin = 'round';
+            c.lineCap = 'round';
+            c.lineWidth = 30;
+
+            c.globalCompositeOperation = 'destination-out';
+
+            if (arr.length == 1) {
+                c.lineTo(arr[0][0]+1,arr[0][1]+1)
+            } else {
+                for (var i = 0; i < arr.length; i++) {
+                    c.lineTo(arr[i][0],arr[i][1]);
+                    c.moveTo(arr[i][0],arr[i][1]);
+                }
+            }
+            c.closePath();
+            c.stroke();
+            c.restore()
+        }
+    </script>
+</body>
+</html>
