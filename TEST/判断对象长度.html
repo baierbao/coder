@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         var obj={}
+         var arr = Object.keys(obj);
+         var len = arr.length;
+        console.log(len)    // 2
+
+
+    /********服务记录列表接口以及下拉加载********/
+        var dataArr=[];
+        var res=[{a:1}];  // 用户中心有数据
+        var hoo={}       // 用户中心无数据格式
+        console.log(hoo.length>0)  // false
+        console.log(hoo.length)     // undefined
+        console.log(res.length>0) // true
+        res.forEach(function (item, index) {
+                dataArr.push(item);
+            });
+       console.log(dataArr.length)  // 1  
+       console.log(dataArr)
+    </script>
+</body>
+</html>
